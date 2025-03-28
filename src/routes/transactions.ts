@@ -8,6 +8,10 @@ import { checkSessionIdExists } from "../middlewares/check-session-id-exists"
 // Tipo pode ser um id do seu computador, que ao entrar novamente na aplicação ele sabe tudo que voce pesquisou, histórico
 
 export async function transactionsRoutes(app: FastifyInstance) {
+    app.addHook('preHandler', async (req) => {
+        console.log(`[${req.method}] ${req.url}`)
+    })
+
     app.get('/', {
         preHandler: [checkSessionIdExists]
     }, async (req, reply) => {
